@@ -32,7 +32,7 @@ if (isset($data['payment_status']) && $data['payment_status'] == "finished") {
             sendmessage($Balance_id['id'], $text_report, null, 'HTML');
         }
         $text_reportpayment = sprintf($textbotlang['paymentGateway']['reportNowpayment'], $Balance_id['username'], $Balance_id['id'], $Payment_report['price'], $pay['actually_paid']);
-        if (strlen($setting['Channel_Report']) > 0) {
+        if (reportChannelIsSet($setting)) {
             telegram('sendmessage', [
                 'chat_id' => $setting['Channel_Report'],
                 'message_thread_id' => $paymentreports,

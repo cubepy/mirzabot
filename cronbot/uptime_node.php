@@ -30,7 +30,7 @@ foreach ($marzbanlist as $location) {
     foreach ($Getdnodes as $data) {
         if (!in_array($data['status'], ["connected", "disabled"])) {
             $textnode = sprintf($textbotlang['Admin']['report']['nodeDown'], $data['name'], $data['status'], $data['message']);
-        if (strlen($setting['Channel_Report']) > 0) {
+        if (reportChannelIsSet($setting)) {
         telegram('sendmessage',[
         'chat_id' => $setting['Channel_Report'],
         'message_thread_id' => $errorreport,

@@ -40,6 +40,7 @@ $statusMap = [
   'sendedwarn' => ['tag-warn', $textbotlang['panel']['invoiceNotifAllSent']],
   'send_on_hold' => ['tag-plain', $textbotlang['panel']['invoiceNotifNotConnectedSent']],
   'unpaid' => ['tag-plain', $textbotlang['panel']['invoiceStatusUnpaid']],
+  'failed' => ['tag-no', $textbotlang['panel']['invoiceStatusFailed'] ?? 'Creation failed'],
   'Unsuccessful' => ['tag-plain', $textbotlang['panel']['invoiceDataFetchError']],
 ];
 

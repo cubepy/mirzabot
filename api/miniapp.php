@@ -1010,7 +1010,7 @@ function mini_purchase(array $data, string $method): void
                 $dateacc = date('Y/m/d H:i:s');
                 $textadd = sprintf($textbotlang['users']['affiliates']['commissionPaidMiniapp'], $result);
                 $textreportport = sprintf($textbotlang['Admin']['reportgroup']['commissionPaidMiniapp'], $result, $user_info['affiliates'], $user_info['id'], $dateacc);
-                if (strlen($setting['Channel_Report']) > 0) {
+                if (reportChannelIsSet($setting)) {
                     telegram('sendmessage', [
                         'chat_id' => $setting['Channel_Report'],
                         'message_thread_id' => $porsantreport,
@@ -1034,7 +1034,7 @@ function mini_purchase(array $data, string $method): void
                 $dateacc = date('Y/m/d H:i:s');
                 $textadd = sprintf($textbotlang['users']['affiliates']['commissionPaidMiniapp2'], $result);
                 $textreportport = sprintf($textbotlang['Admin']['reportgroup']['commissionPaidMiniapp2'], $result, $user_info['affiliates'], $user_info['id'], $dateacc);
-                if (strlen($setting['Channel_Report']) > 0) {
+                if (reportChannelIsSet($setting)) {
                     telegram('sendmessage', [
                         'chat_id' => $setting['Channel_Report'],
                         'message_thread_id' => $porsantreport,
@@ -1066,7 +1066,7 @@ function mini_purchase(array $data, string $method): void
     ]);
     $timejalali = jdate('Y/m/d H:i:s');
     $text_report = sprintf($textbotlang['Admin']['reportgroup']['accountCreatedMiniapp'], $textonebuy, $user_info['id'], $user_info['username'], $username_ac, $panel['name_panel'], $product['name_product'], $product['Service_time'], $product['Volume_constraint'], $balanceformatsellbefore, $balanceformatsell, $randomString, $user_info['agent'], $user_info['number'], $product['category'], $product['price_product'], $timejalali);
-    if (strlen($setting['Channel_Report']) > 0) {
+    if (reportChannelIsSet($setting)) {
         telegram('sendmessage', [
             'chat_id' => $setting['Channel_Report'],
             'message_thread_id' => $buyreport,

@@ -82,7 +82,7 @@ if ($Payment_report['payment_Status'] != "paid" && $authority) {
         $statement->bindValue(':dec_not_confirmed', $database);
         $statement->bindValue(':id_order', $Payment_report['id_order']);
         $statement->execute();
-        if (strlen($setting['Channel_Report']) > 0) {
+        if (reportChannelIsSet($setting)) {
             telegram('sendmessage', [
                 'chat_id' => $setting['Channel_Report'],
                 'message_thread_id' => $paymentreports,

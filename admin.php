@@ -165,7 +165,7 @@ if (in_array($text, $textadmin) || $datain == "admin") {
     $stmt->bindParam(':rule', $text, PDO::PARAM_STR);
     $stmt->execute();
     $text_report = sprintf($textbotlang['Admin']['reportgroup']['adminAdded'], $username, $from_id, $text, $user['Processing_value']);
-    if (strlen($setting['Channel_Report']) > 0) {
+    if (reportChannelIsSet($setting)) {
         telegram('sendmessage', [
             'chat_id' => $setting['Channel_Report'],
             'message_thread_id' => $otherreport,
@@ -2706,7 +2706,20 @@ elseif ($datain == "systemsms") {
         Editmessagetext($from_id, $message_id, $textconfrom, $Confirm_pay);
         return;
     }
-    DirectPayment($order_id);
+    $paymentFulfilled = DirectPayment($order_id);
+    $Balance_id = select("user", "*", "id", $Payment_report['id_user'], "select");
+    if (!$paymentFulfilled) {
+        telegram('answerCallbackQuery', array(
+            'callback_query_id' => $callback_query_id,
+            'text' => $textbotlang['Admin']['Payment']['fulfillmentFailed'] ?? 'Payment confirmed but service creation failed. Check the error report and resolve manually.',
+            'show_alert' => true,
+            'cache_time' => 5,
+        ));
+        update("user", "Processing_value_one", "none", "id", $Balance_id['id']);
+        update("user", "Processing_value_tow", "none", "id", $Balance_id['id']);
+        update("user", "Processing_value_four", "none", "id", $Balance_id['id']);
+        return;
+    }
     $pricecashback = select("PaySetting", "ValuePay", "NamePay", "chashbackcart", "select")['ValuePay'];
     $Balance_id = select("user", "*", "id", $Payment_report['id_user'], "select");
     if ($pricecashback != "0") {
@@ -2719,7 +2732,7 @@ elseif ($datain == "systemsms") {
     }
     $Payment_report['price'] = number_format($Payment_report['price']);
     $text_report = sprintf($textbotlang['Admin']['reportgroup']['paymentApproved'], $Payment_report['Payment_Method'], $from_id, $Payment_report['price'], $Payment_report['id_user'], $Balance_id['username'], $order_id);
-    if (strlen($setting['Channel_Report']) > 0) {
+    if (reportChannelIsSet($setting)) {
         telegram('sendmessage', [
             'chat_id' => $setting['Channel_Report'],
             'message_thread_id' => $paymentreports,
@@ -2767,7 +2780,7 @@ elseif ($datain == "systemsms") {
     sendmessage($user['Processing_value'], $text_reject, null, 'HTML');
     step('home', $from_id);
     $text_report = sprintf($textbotlang['Admin']['reportgroup']['paymentRejected'], $Payment_report['Payment_Method'], $from_id, $username, $Payment_report['price'], $text, $Payment_report['id_user']);
-    if (strlen($setting['Channel_Report']) > 0) {
+    if (reportChannelIsSet($setting)) {
         telegram('sendmessage', [
             'chat_id' => $setting['Channel_Report'],
             'message_thread_id' => $paymentreports,
@@ -3140,7 +3153,7 @@ elseif ($datain == "systemsms") {
     $textkam = sprintf($textbotlang['users']['Balance']['deductedNotice'], $balances1);
     sendmessage($user['Processing_value'], $textkam, null, 'HTML');
     step('home', $from_id);
-    if (strlen($setting['Channel_Report']) > 0) {
+    if (reportChannelIsSet($setting)) {
         $textaddbalance = sprintf($textbotlang['Admin']['reportgroup']['balanceDecreased'], $username, $from_id, $user['Processing_value'], $text, $Balance_user_afters);
         telegram('sendmessage', [
             'chat_id' => $setting['Channel_Report'],
@@ -4595,7 +4608,7 @@ elseif ($datain == "systemsms") {
     step('home', $from_id);
     $Balance_user_after = number_format(select("user", "*", "id", $user['Processing_value'], "select")['Balance']);
     $pricadd = number_format($text);
-    if (strlen($setting['Channel_Report']) > 0) {
+    if (reportChannelIsSet($setting)) {
         $textaddbalance = sprintf($textbotlang['Admin']['reportgroup']['balanceIncreased'], $username, $from_id, $user['Processing_value'], $pricadd, $Balance_user_after);
         telegram('sendmessage', [
             'chat_id' => $setting['Channel_Report'],
@@ -4640,7 +4653,7 @@ elseif ($datain == "systemsms") {
     sendmessage($user['Processing_value'], $textkam, null, 'HTML');
     step('home', $from_id);
     $Balance_user_afters = number_format(select("user", "*", "id", $user['Processing_value'], "select")['Balance']);
-    if (strlen($setting['Channel_Report']) > 0) {
+    if (reportChannelIsSet($setting)) {
         $textaddbalance = sprintf($textbotlang['Admin']['reportgroup']['balanceDecreased2'], $username, $from_id, $user['Processing_value'], $text, $Balance_user_afters);
         telegram('sendmessage', [
             'chat_id' => $setting['Channel_Report'],
@@ -4684,7 +4697,7 @@ elseif ($datain == "systemsms") {
             ],
         ]
     ]);
-    if (strlen($setting['Channel_Report']) > 0) {
+    if (reportChannelIsSet($setting)) {
         telegram('sendmessage', [
             'chat_id' => $setting['Channel_Report'],
             'message_thread_id' => $otherservice,
@@ -4719,7 +4732,7 @@ elseif ($datain == "systemsms") {
             ],
         ]
     ]);
-    if (strlen($setting['Channel_Report']) > 0) {
+    if (reportChannelIsSet($setting)) {
         telegram('sendmessage', [
             'chat_id' => $setting['Channel_Report'],
             'message_thread_id' => $otherservice,
@@ -5053,7 +5066,7 @@ elseif ($datain == "systemsms") {
     $textadd = sprintf($textbotlang['users']['Balance']['addedNotice3'], $balanceusers);
     sendmessage($Payment_report['id_user'], $textadd, null, 'HTML');
     $text_report = sprintf($textbotlang['Admin']['reportgroup']['balanceManualAdd'], $Payment_report['id_user'], $Balance_user['username'], $Payment_report['price'], $text);
-    if (strlen($setting['Channel_Report']) > 0) {
+    if (reportChannelIsSet($setting)) {
         telegram('sendmessage', [
             'chat_id' => $setting['Channel_Report'],
             'message_thread_id' => $paymentreports,
@@ -5927,7 +5940,7 @@ elseif ($datain == "systemsms") {
     sendmessage($from_id, sprintf($textbotlang['Admin']['Balance']['addedToUserNotice'], $pricelast), null, 'HTML');
     sendmessage($nameloc['id_user'], sprintf($textbotlang['users']['status']['deleteRequestApproved'], $nameloc['username']), null, 'HTML');
     $text_report = sprintf($textbotlang['Admin']['reportgroup']['deleteRequestApproved'], $from_id, $pricelast, $requestcheck['username'], $nameloc['id_user']);
-    if (strlen($setting['Channel_Report']) > 0) {
+    if (reportChannelIsSet($setting)) {
         telegram('sendmessage', [
             'chat_id' => $setting['Channel_Report'],
             'message_thread_id' => $otherreport,
@@ -5968,7 +5981,7 @@ elseif ($datain == "systemsms") {
     sendmessage($invoice['id_user'], sprintf($textbotlang['users']['Balance']['addedNotice5'], $text), null, 'HTML');
     sendmessage($from_id, $textbotlang['Admin']['Balance']['addedToUser'], $keyboardadmin, 'HTML');
     $text_report = sprintf($textbotlang['Admin']['reportgroup']['deleteRequestApproved2'], $from_id, $text, $invoice['username'], $invoice['id_user']);
-    if (strlen($setting['Channel_Report']) > 0) {
+    if (reportChannelIsSet($setting)) {
         telegram('sendmessage', [
             'chat_id' => $setting['Channel_Report'],
             'message_thread_id' => $otherreport,
@@ -6168,7 +6181,7 @@ if ($datain == "settimecornremove" && $adminrulecheck['rule'] == "administrator"
             sendmessage($from_id, $textbotlang['Admin']['reportgroup']['checkReportGroup'], null, 'HTML');
             $DataUserOut['msg'] = json_encode($DataUserOut['msg']);
             $texterros = sprintf($textbotlang['Admin']['reportgroup']['errorConfigCreateAdmin'], $DataUserOut['msg'], $from_id, $marzban_list_get['name_panel']);
-            if (strlen($setting['Channel_Report']) > 0) {
+            if (reportChannelIsSet($setting)) {
                 telegram('sendmessage', [
                     'chat_id' => $setting['Channel_Report'],
                     'message_thread_id' => $errorreport,
@@ -6593,7 +6606,7 @@ if ($datain == "settimecornremove" && $adminrulecheck['rule'] == "administrator"
             $dataoutput['msg'] = json_encode($dataoutput['msg']);
             sendmessage($from_id, $textbotlang['users']['sell']['errorConfig'], null, 'HTML');
             $texterros = sprintf($textbotlang['Admin']['reportgroup']['errorAccountCreate'], $dataoutput['msg'], $from_id, $username, $panel['name_panel']);
-            if (strlen($setting['Channel_Report']) > 0) {
+            if (reportChannelIsSet($setting)) {
                 telegram('sendmessage', [
                     'chat_id' => $setting['Channel_Report'],
                     'message_thread_id' => $errorreport,
@@ -6633,7 +6646,7 @@ if ($datain == "settimecornremove" && $adminrulecheck['rule'] == "administrator"
     }
     sendmessage($from_id, $textbotlang['users']['selectoption'], $optionathmarzban, 'HTML');
     $text_report = "";
-    if (strlen($setting['Channel_Report']) > 0) {
+    if (reportChannelIsSet($setting)) {
         $text_report = sprintf($textbotlang['Admin']['reportgroup']['configCreatedByAdmin'], $user['Processing_value_one'], $user['Processing_value_tow'], $text, $from_id, $username, $userdata['count']);
         telegram('sendmessage', [
             'chat_id' => $setting['Channel_Report'],
@@ -8970,7 +8983,7 @@ elseif ($text == $textbotlang['keyboard']['hidePanelForUser'] && $adminrulecheck
         $extend['msg'] = json_encode($extend['msg']);
         $textreports = sprintf($textbotlang['Admin']['reportgroup']['errorRenewServiceAdmin'], $marzban_list_get['name_panel'], $nameloc['username'], $extend['msg']);
         sendmessage($from_id, $textbotlang['Admin']['order']['renewErrorSupport'], null, 'HTML');
-        if (strlen($setting['Channel_Report']) > 0) {
+        if (reportChannelIsSet($setting)) {
             telegram('sendmessage', [
                 'chat_id' => $setting['Channel_Report'],
                 'message_thread_id' => $errorreport,
@@ -8996,7 +9009,7 @@ elseif ($text == $textbotlang['keyboard']['hidePanelForUser'] && $adminrulecheck
     update("invoice", "Status", "active", "id_invoice", $id_invoice);
     sendmessage($from_id, $textbotlang['users']['extend']['thanks'], null, 'HTML');
     $text_report = sprintf($textbotlang['Admin']['reportgroup']['renewedByAdmin'], $from_id, $nameloc['id_user'], $prodcut['name_product'], $nameloc['username'], $nameloc['Service_location']);
-    if (strlen($setting['Channel_Report']) > 0) {
+    if (reportChannelIsSet($setting)) {
         telegram('sendmessage', [
             'chat_id' => $setting['Channel_Report'],
             'message_thread_id' => $otherservice,
@@ -10394,7 +10407,7 @@ if ($datain == "settimecornday" && $adminrulecheck['rule'] == "administrator") {
     $stmt->bindParam(':id_invoice', $id_invoice, PDO::PARAM_STR);
     $stmt->execute();
     Editmessagetext($from_id, $message_id, $textbotlang['Admin']['order']['deleted'], json_encode(['inline_keyboard' => []]));
-    if (strlen($setting['Channel_Report']) > 0) {
+    if (reportChannelIsSet($setting)) {
         telegram('sendmessage', [
             'chat_id' => $setting['Channel_Report'],
             'message_thread_id' => $otherreport,

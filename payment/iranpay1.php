@@ -75,7 +75,7 @@ if ($StatusPayment == 100) {
             $paymentreports = select("topicid", "idreport", "report", "paymentreport", "select")['idreport'];
             $price = number_format($price);
             $text_report = sprintf($textbotlang['paymentGateway']['reportIranpay'], $Payment_report['id_user'], $Balance_id['username'], $price);
-            if (strlen($setting['Channel_Report']) > 0) {
+            if (reportChannelIsSet($setting)) {
                 telegram('sendmessage', [
                     'chat_id' => $setting['Channel_Report'],
                     'message_thread_id' => $paymentreports,

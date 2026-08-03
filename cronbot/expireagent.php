@@ -19,7 +19,7 @@ while ($user = $stmt->fetch(PDO::FETCH_ASSOC)) {
     update("user","agent","f","id",$user['id']);
     update("user","expire",null,"id",$user['id']);
     $textreport = sprintf($textbotlang['Admin']['reportgroup']['agentExpiredGroupChanged'], $user['id'], $user['username']);
-    if (strlen($setting['Channel_Report']) > 0) {
+    if (reportChannelIsSet($setting)) {
         telegram('sendmessage',[
             'chat_id' => $setting['Channel_Report'],
             'message_thread_id' => $otherreport,

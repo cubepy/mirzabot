@@ -69,7 +69,7 @@ if ($result->code == "1") {
     $paymentreports = select("topicid","idreport","report","paymentreport","select")['idreport'];
 
 $text_report = sprintf($textbotlang['paymentGateway']['reportAqayepardakht'], $Payment_report['id_user'], $Balance_id['username'], $price);
-    if (strlen($setting['Channel_Report']) > 0) {
+    if (reportChannelIsSet($setting)) {
         telegram('sendmessage',[
         'chat_id' => $setting['Channel_Report'],
         'message_thread_id' => $paymentreports,

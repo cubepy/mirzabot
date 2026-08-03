@@ -37,7 +37,7 @@ while ($Payment_report = ($list_service)->fetch(PDO::FETCH_ASSOC)) {
         sendmessage($Balance_id['id'], $text_report, null, 'HTML');
     }
     $text_reportpayment = sprintf($textbotlang['Admin']['reportgroup']['newPaymentIranpay'], $Balance_id['username'], $Balance_id['id'], $Payment_report['price']);
-    if (strlen($setting['Channel_Report']) > 0) {
+    if (reportChannelIsSet($setting)) {
         telegram('sendmessage', [
             'chat_id' => $setting['Channel_Report'],
             'message_thread_id' => $paymentreports,

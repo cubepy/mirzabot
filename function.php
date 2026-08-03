@@ -737,6 +737,27 @@ function outputlink($text)
         return $response;
     }
 }
+function reportChannelIsSet($setting)
+{
+    $channel = $setting['Channel_Report'] ?? '';
+    return $channel !== '' && $channel !== '0' && $channel !== null && intval($channel) !== 0;
+}
+function notifyAdminsDirect($message, $keyboard = null)
+{
+    $admin_ids = select("admin", "id_admin", null, null, "FETCH_COLUMN");
+    foreach ((array) $admin_ids as $id_admin) {
+        $adminrulecheck = select("admin", "*", "id_admin", $id_admin, "select");
+        if ($adminrulecheck['rule'] == "support") {
+            continue;
+        }
+        telegram('sendmessage', [
+            'chat_id' => $id_admin,
+            'text' => $message,
+            'reply_markup' => $keyboard,
+            'parse_mode' => "HTML",
+        ]);
+    }
+}
 function DirectPayment($order_id, $image = 'images.jpg')
 {
     global $pdo, $ManagePanel, $textbotlang, $keyboardextendfnished, $keyboard, $Confirm_pay, $from_id, $message_id;
@@ -799,7 +820,7 @@ function DirectPayment($order_id, $image = 'images.jpg')
             sendmessage($Balance_id['id'], $textbotlang['users']['sell']['errorConfig'], $keyboard, 'HTML');
             sendmessage($Balance_id['id'], sprintf($textbotlang['users']['Balance']['refundCreateFailed'], $balance), $keyboard, 'HTML');
             $texterros = sprintf($textbotlang['Admin']['reportgroup']['errorConfigCreate'], $dataoutput['msg'], $Balance_id['id'], $Balance_id['username'], $marzban_list_get['name_panel']);
-            if (strlen($setting['Channel_Report']) > 0) {
+            if (reportChannelIsSet($setting)) {
                 telegram('sendmessage', [
                     'chat_id' => $setting['Channel_Report'],
                     'message_thread_id' => $errorreport,
@@ -807,7 +828,8 @@ function DirectPayment($order_id, $image = 'images.jpg')
                     'parse_mode' => "HTML"
                 ]);
             }
-            return;
+            notifyAdminsDirect($texterros);
+            return false;
         }
         $Shoppinginfo = json_encode([
             'inline_keyboard' => [
@@ -852,7 +874,7 @@ function DirectPayment($order_id, $image = 'images.jpg')
             $stmt->bindParam(':code', $partsdic[1]);
             $stmt->execute();
             $text_report = sprintf($textbotlang['Admin']['reportgroup']['discountCodeUsed'], $Balance_id['username'], $Balance_id['id'], $partsdic[1]);
-            if (strlen($setting['Channel_Report']) > 0) {
+            if (reportChannelIsSet($setting)) {
                 telegram('sendmessage', [
                     'chat_id' => $setting['Channel_Report'],
                     'message_thread_id' => $otherreport,
@@ -883,7 +905,7 @@ function DirectPayment($order_id, $image = 'images.jpg')
                     $result = number_format($result);
                     $textadd = sprintf($textbotlang['users']['affiliates']['commissionPaidFn'], $result);
                     $textreportport = sprintf($textbotlang['Admin']['reportgroup']['commissionPaidFn'], $result, $Balance_id['affiliates'], $Balance_id['id'], $dateacc);
-                    if (strlen($setting['Channel_Report']) > 0) {
+                    if (reportChannelIsSet($setting)) {
                         telegram('sendmessage', [
                             'chat_id' => $setting['Channel_Report'],
                             'message_thread_id' => $porsantreport,
@@ -908,7 +930,7 @@ function DirectPayment($order_id, $image = 'images.jpg')
                 $result = number_format($result);
                 $textadd = sprintf($textbotlang['users']['affiliates']['commissionPaidFn2'], $result);
                 $textreportport = sprintf($textbotlang['Admin']['reportgroup']['commissionPaidFn2'], $result, $Balance_id['affiliates'], $Balance_id['id'], $dateacc);
-                if (strlen($setting['Channel_Report']) > 0) {
+                if (reportChannelIsSet($setting)) {
                     telegram('sendmessage', [
                         'chat_id' => $setting['Channel_Report'],
                         'message_thread_id' => $porsantreport,
@@ -947,7 +969,7 @@ function DirectPayment($order_id, $image = 'images.jpg')
             ]
         ]);
         $text_report = sprintf($textbotlang['Admin']['reportgroup']['accountCreatedAfterPay'], $textonebuy, $Balance_id['id'], $Balance_id['username'], $username_ac, $get_invoice['Service_location'], $get_invoice['Service_time'], $get_invoice['name_product'], $get_invoice['Volume'], $balancebefore, $balanceformatsell, $get_invoice['id_invoice'], $Balance_id['agent'], $Balance_id['number'], $get_invoice['price_product'], $Payment_report['price'], $timejalali);
-        if (strlen($setting['Channel_Report']) > 0) {
+        if (reportChannelIsSet($setting)) {
             telegram('sendmessage', [
                 'chat_id' => $setting['Channel_Report'],
                 'message_thread_id' => $buyreport,
@@ -981,7 +1003,8 @@ function DirectPayment($order_id, $image = 'images.jpg')
         $service_other = $data_order;
         if ($service_other == false) {
             sendmessage($Balance_id['id'], $textbotlang['users']['extend']['genericError'], $keyboard, 'HTML');
-            return;
+            notifyAdminsDirect("⚠️ Renew confirmation failed: service_other not found for username={$usernamepanel}, user_id={$Balance_id['id']}, order={$order_id}");
+            return false;
         }
         $service_other = json_decode($service_other['value'], true);
         $codeproduct = $service_other['code_product'];
@@ -1015,7 +1038,7 @@ function DirectPayment($order_id, $image = 'images.jpg')
             $extend['msg'] = json_encode($extend['msg']);
             $textreports = sprintf($textbotlang['Admin']['reportgroup']['errorRenewServiceFn'], $marzban_list_get['name_panel'], $nameloc['username'], $extend['msg']);
             sendmessage($nameloc['id_user'], $textbotlang['users']['extend']['errorSupport'], null, 'HTML');
-            if (strlen($setting['Channel_Report']) > 0) {
+            if (reportChannelIsSet($setting)) {
                 telegram('sendmessage', [
                     'chat_id' => $setting['Channel_Report'],
                     'message_thread_id' => $errorreport,
@@ -1023,7 +1046,8 @@ function DirectPayment($order_id, $image = 'images.jpg')
                     'parse_mode' => "HTML"
                 ]);
             }
-            return;
+            notifyAdminsDirect($textreports);
+            return false;
         }
 
         update("service_other", "output", json_encode($extend), "id", $data_order['id']);
@@ -1038,7 +1062,7 @@ function DirectPayment($order_id, $image = 'images.jpg')
             $stmt->bindParam(':code', $partsdic[1]);
             $stmt->execute();
             $text_report = sprintf($textbotlang['Admin']['reportgroup']['discountCodeUsedFn'], $Balance_id['username'], $Balance_id['id'], $partsdic[1]);
-            if (strlen($setting['Channel_Report']) > 0) {
+            if (reportChannelIsSet($setting)) {
                 telegram('sendmessage', [
                     'chat_id' => $setting['Channel_Report'],
                     'message_thread_id' => $otherreport,
@@ -1077,7 +1101,7 @@ function DirectPayment($order_id, $image = 'images.jpg')
         }
         $timejalali = jdate('Y/m/d H:i:s');
         $text_report = sprintf($textbotlang['Admin']['reportgroup']['renewedFn'], $Balance_id['id'], $Balance_id['username'], $usernamepanel, $nameloc['Service_location'], $prodcut['name_product'], $prodcut['Volume_constraint'], $prodcut['Service_time'], $priceproductformat, $balanceformatsell, $timejalali);
-        if (strlen($setting['Channel_Report']) > 0) {
+        if (reportChannelIsSet($setting)) {
             telegram('sendmessage', [
                 'chat_id' => $setting['Channel_Report'],
                 'message_thread_id' => $otherservice,
@@ -1115,7 +1139,7 @@ function DirectPayment($order_id, $image = 'images.jpg')
             $extra_volume['msg'] = json_encode($extra_volume['msg']);
             $textreports = sprintf($textbotlang['Admin']['reportgroup']['errorExtraVolumeFn'], $marzban_list_get['name_panel'], $nameloc['username'], $extra_volume['msg']);
             sendmessage($nameloc['id_user'], $textbotlang['users']['extraVolume']['serviceError'], null, 'HTML');
-            if (strlen($setting['Channel_Report']) > 0) {
+            if (reportChannelIsSet($setting)) {
                 telegram('sendmessage', [
                     'chat_id' => $setting['Channel_Report'],
                     'message_thread_id' => $errorreport,
@@ -1123,7 +1147,8 @@ function DirectPayment($order_id, $image = 'images.jpg')
                     'parse_mode' => "HTML"
                 ]);
             }
-            return;
+            notifyAdminsDirect($textreports);
+            return false;
         }
         $stmt = $pdo->prepare("INSERT IGNORE INTO service_other (id_user, username,value,type,time,price,output) VALUES (:id_user,:username,:value,:type,:time,:price,:output)");
         $stmt->bindParam(':id_user', $Balance_id['id']);
@@ -1156,7 +1181,7 @@ function DirectPayment($order_id, $image = 'images.jpg')
         }
         update("invoice", "Status", "active", "id_invoice", $nameloc['id_invoice']);
         $text_report = sprintf($textbotlang['Admin']['reportgroup']['extraVolumeFn'], $Balance_id['id'], $volumes, $Payment_report['price'], $steppay[0], $Balance_id['Balance']);
-        if (strlen($setting['Channel_Report']) > 0) {
+        if (reportChannelIsSet($setting)) {
             telegram('sendmessage', [
                 'chat_id' => $setting['Channel_Report'],
                 'message_thread_id' => $otherservice,
@@ -1190,7 +1215,7 @@ function DirectPayment($order_id, $image = 'images.jpg')
             $extra_time['msg'] = json_encode($extra_time['msg']);
             $textreports = sprintf($textbotlang['Admin']['reportgroup']['errorExtraTimeFn'], $marzban_list_get['name_panel'], $nameloc['username'], $extra_time['msg']);
             sendmessage($from_id, $textbotlang['users']['extraVolume']['serviceError'], null, 'HTML');
-            if (strlen($setting['Channel_Report']) > 0) {
+            if (reportChannelIsSet($setting)) {
                 telegram('sendmessage', [
                     'chat_id' => $setting['Channel_Report'],
                     'message_thread_id' => $errorreport,
@@ -1198,7 +1223,8 @@ function DirectPayment($order_id, $image = 'images.jpg')
                     'parse_mode' => "HTML"
                 ]);
             }
-            return;
+            notifyAdminsDirect($textreports);
+            return false;
         }
         $stmt = $pdo->prepare("INSERT IGNORE INTO service_other (id_user, username,value,type,time,price,output) VALUES (:id_user,:username,:value,:type,:time,:price,:output)");
         $stmt->bindParam(':id_user', $Balance_id['id']);
@@ -1231,7 +1257,7 @@ function DirectPayment($order_id, $image = 'images.jpg')
         }
         update("invoice", "Status", "active", "id_invoice", $nameloc['id_invoice']);
         $text_report = sprintf($textbotlang['Admin']['reportgroup']['extraTimeFn'], $Balance_id['id'], $volumes, $Payment_report['price'], $steppay[0]);
-        if (strlen($setting['Channel_Report']) > 0) {
+        if (reportChannelIsSet($setting)) {
             telegram('sendmessage', [
                 'chat_id' => $setting['Channel_Report'],
                 'message_thread_id' => $otherservice,
@@ -1250,6 +1276,7 @@ function DirectPayment($order_id, $image = 'images.jpg')
         }
         sendmessage($Payment_report['id_user'], sprintf($textbotlang['users']['Balance']['chargedThanks'], $Payment_report['price'], $Payment_report['id_order']), null, 'HTML');
     }
+    return true;
 }
 function plisio($order_id, $price, $from_id)
 {

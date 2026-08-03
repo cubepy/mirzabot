@@ -52,7 +52,7 @@ foreach ($userid as $iduser){
      if($extra_volume['status'] == false){
             $extra_volume['msg'] = json_encode($extra_volume['msg']);
             $textreports = sprintf($textbotlang['Admin']['gift']['volumeAddError'], $marzban_list_get['name_panel'], $nameloc['username'], $extra_volume['msg']);
-            if (strlen($setting['Channel_Report']) > 0) {
+            if (reportChannelIsSet($setting)) {
                 telegram('sendmessage',[
                     'chat_id' => $setting['Channel_Report'],
                     'message_thread_id' => $errorreport,
@@ -101,7 +101,7 @@ foreach ($userid as $iduser){
      if($extra_time['status'] == false){
             $extra_time['msg'] = json_encode($extra_time['msg']);
             $textreports = sprintf($textbotlang['Admin']['gift']['volumeAddError2'], $marzban_list_get['name_panel'], $nameloc['username'], $extra_time['msg']);
-            if (strlen($setting['Channel_Report']) > 0) {
+            if (reportChannelIsSet($setting)) {
                 telegram('sendmessage',[
                     'chat_id' => $setting['Channel_Report'],
                     'message_thread_id' => $errorreport,
