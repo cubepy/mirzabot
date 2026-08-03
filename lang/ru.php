@@ -159,7 +159,7 @@ return [
                 'gateways' => [
                         'perfectMoney' => 'Perfect Money',
                         'rial1' => 'Оплата риаловой валютой',
-                        'rial2' => 'Оплата второй риаловой валютой',
+                        'rial2' => 'Оплата через CubePay (вторая риаловая валюта)',
                 ],
                 'labels' => [
                         'testServiceName' => 'Тестовый сервис',
@@ -1658,9 +1658,6 @@ n2',
                         'askFallbackName' => '📌 Какое имя зарегистрировать, если у пользователя нет имени пользователя?',
                 ],
                 'api' => [
-                        'askAddress' => '📌 Отправьте адрес API.
-
-Текущий адрес: %s',
                         'token' => 'Ваш api-токен: <code>%s</code>',
                         'docsLink' => '📘 Полная документация API:
 %s
@@ -3785,7 +3782,7 @@ ID пользователя : %s
                 'cashbackAqayePardakht' => '💰 Кэшбэк Aghaye Pardakht',
                 'cashbackCartToCart' => '💰 Кэшбэк карта на карту',
                 'cashbackIranPay1' => '💰 Кэшбэк риаловой валюты',
-                'cashbackIranPay2' => '💰 Кэшбэк второй риаловой валюты',
+                'cashbackIranPay2' => '💰 Кэшбэк CubePay (вторая риаловая валюта)',
                 'cashbackIranPay3' => '💰 Кэшбэк третьей риаловой валюты',
                 'cashbackNowPayment' => '💰 Кэшбэк nowpayment',
                 'cashbackPlisio' => '💰 Кэшбэк plisio',
@@ -3925,7 +3922,7 @@ ID пользователя : %s
                 'infoRefreshed' => '♻️ Информация обновлена',
                 'infoUpdated' => 'Информация обновлена',
                 'iranPay1Label' => '📌 Первая риаловая валюта',
-                'iranPay2Label' => '📌 Вторая риаловая валюта',
+                'iranPay2Label' => '📌 CubePay (вторая риаловая валюта)',
                 'iranPay3Label' => '📌Третья риаловая валюта',
                 'lastHourStats' => '⏱️ Последний час',
                 'lastMonth' => '⛅️ Предыдущий месяц',
@@ -3945,7 +3942,7 @@ ID пользователя : %s
                 'maxAmountCartToCart' => '⬆️ Максимальная сумма карта на карту',
                 'maxAmountCryptoOffline' => '⬆️ Максимальная сумма офлайн-крипто',
                 'maxAmountIranPay1' => '⬆️ Максимальная сумма риаловой валюты',
-                'maxAmountIranPay2' => '⬆️ Максимальная сумма второй риаловой валюты',
+                'maxAmountIranPay2' => '⬆️ Максимальная сумма CubePay (вторая риаловая валюта)',
                 'maxAmountIranPay3' => '⬆️ Максимальная сумма третьей риаловой валюты',
                 'maxAmountNowPayment' => '⬆️ Максимальная сумма nowpayment',
                 'maxAmountPlisio' => '⬆️ Максимальная сумма plisio',
@@ -3960,7 +3957,7 @@ ID пользователя : %s
                 'minAmountCartToCart' => '⬇️ Минимальная сумма карта на карту',
                 'minAmountCryptoOffline' => '⬇️ Минимальная сумма офлайн-крипто',
                 'minAmountIranPay1' => '⬇️ Минимальная сумма риаловой валюты',
-                'minAmountIranPay2' => '⬇️ Минимальная сумма второй риаловой валюты',
+                'minAmountIranPay2' => '⬇️ Минимальная сумма CubePay (вторая риаловая валюта)',
                 'minAmountIranPay3' => '⬇️ Минимальная сумма третьей риаловой валюты',
                 'minAmountNowPayment' => '⬇️ Минимальная сумма nowpayment',
                 'minAmountPlisio' => '⬇️ Минимальная сумма plisio',
@@ -4046,14 +4043,13 @@ ID пользователя : %s
                 'setAffiliateBanner' => '🏞 Установить баннер сбора рефералов',
                 'setAffiliatePercent' => '🧮 Установить процент реферала',
                 'setApi' => 'Установить api',
-                'setApiAddress' => 'Установить адрес api',
                 'setAqayePardakhtMerchant' => 'Установить продавца Aghaye Pardakht',
                 'setCardNumber' => '💳 Установить номер карты',
                 'setEducationAqayePardakht' => '📚 Установить инструкцию шлюза Aghaye Pardakht',
                 'setEducationCartToCart' => '📚 Установить инструкцию карта на карту',
                 'setEducationCryptoOffline' => '📚 Установить инструкцию офлайн-валюты ',
                 'setEducationIranPay1' => '📚 Установить инструкцию первой риаловой валюты',
-                'setEducationIranPay2' => '📚 Установить инструкцию второй риаловой валюты',
+                'setEducationIranPay2' => '📚 Установить инструкцию CubePay (вторая риаловая валюта)',
                 'setEducationIranPay3' => '📚 Установить инструкцию третьей риаловой валюты',
                 'setEducationNowPayment' => '📚 Установить инструкцию nowpayment',
                 'setEducationPlisio' => '📚 Установить инструкцию plisio',
@@ -4678,13 +4674,10 @@ ID пользователя : %s
 Баланс пользователя : %s туманов
 Код отслеживания платежа : %s',
                 'reportTronado' => '💵 Новый платёж
-%s
 - 👤 Имя пользователя : @%s
 - 🆔Числовой ID пользователя : %s
 - 💸 Сумма транзакции %s
-- 🔗 <a href = "https://tronscan.org/#/transaction/%s">Ссылка оплаты </a>
-- 📥 Внесённая сумма Tron. : %s
-- 💳 Способ оплаты :  Tronado',
+- 💳 Способ оплаты : Rial Currency 2 (CubePay)',
                 'reportNowpayment' => '💵 Новый платёж
 - 👤 Имя пользователя : @%s
 - 🆔Числовой ID пользователя : %s
