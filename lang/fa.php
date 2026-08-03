@@ -159,7 +159,7 @@ return [
                 'gateways' => [
                         'perfectMoney' => 'پرفکت مانی',
                         'rial1' => 'پرداخت ارزی ریالی',
-                        'rial2' => 'پرداخت ارزی ریالی دوم',
+                        'rial2' => 'پرداخت کیوب‌پی (ارزی ریالی دوم)',
                 ],
                 'labels' => [
                         'testServiceName' => 'سرویس تست',
@@ -1655,9 +1655,6 @@ n2',
                         'askFallbackName' => '📌 در صورتی که کاربر نام کاربری نداشت چه اسمی ثبت شود؟',
                 ],
                 'api' => [
-                        'askAddress' => '📌 آدرس api را ارسال نمایید.
-
-آدرس فعلی: %s',
                         'token' => 'توکن api شما : <code>%s</code>',
                         'docsLink' => '📘 مستندات کامل API:
 %s
@@ -3769,7 +3766,7 @@ f,n.n2',
                 'cashbackAqayePardakht' => '💰 کش بک آقای پرداخت',
                 'cashbackCartToCart' => '💰 کش بک کارت به کارت',
                 'cashbackIranPay1' => '💰 کش بک ارزی ریالی',
-                'cashbackIranPay2' => '💰 کش بک ارزی ریالی دوم',
+                'cashbackIranPay2' => '💰 کش بک کیوب‌پی (ارزی ریالی دوم)',
                 'cashbackIranPay3' => '💰 کش بک ارزی ریالی سوم',
                 'cashbackNowPayment' => '💰 کش بک nowpayment',
                 'cashbackPlisio' => '💰 کش بک plisio',
@@ -3909,7 +3906,7 @@ f,n.n2',
                 'infoRefreshed' => '♻️ اطلاعات بروز شد',
                 'infoUpdated' => 'اطلاعات بروزرسانی گردید',
                 'iranPay1Label' => '📌 ارزی ریالی اول',
-                'iranPay2Label' => '📌 ارزی ریالی دوم',
+                'iranPay2Label' => '📌 کیوب‌پی (ارزی ریالی دوم)',
                 'iranPay3Label' => '📌ارزی ریالی سوم',
                 'lastHourStats' => '⏱️ یک ساعت اخیر',
                 'lastMonth' => '⛅️ ماه قبل',
@@ -3929,7 +3926,7 @@ f,n.n2',
                 'maxAmountCartToCart' => '⬆️ حداکثر مبلغ کارت به کارت',
                 'maxAmountCryptoOffline' => '⬆️ حداکثر مبلغ رمزارز آفلاین',
                 'maxAmountIranPay1' => '⬆️ حداکثر مبلغ ارزی ریالی',
-                'maxAmountIranPay2' => '⬆️ حداکثر مبلغ ارزی ریالی دوم',
+                'maxAmountIranPay2' => '⬆️ حداکثر مبلغ کیوب‌پی (ارزی ریالی دوم)',
                 'maxAmountIranPay3' => '⬆️ حداکثر مبلغ ارزی ریالی سوم',
                 'maxAmountNowPayment' => '⬆️ حداکثر مبلغ nowpayment',
                 'maxAmountPlisio' => '⬆️ حداکثر مبلغ plisio',
@@ -3944,7 +3941,7 @@ f,n.n2',
                 'minAmountCartToCart' => '⬇️ حداقل مبلغ کارت به کارت',
                 'minAmountCryptoOffline' => '⬇️ حداقل مبلغ رمزارز آفلاین',
                 'minAmountIranPay1' => '⬇️ حداقل مبلغ ارزی ریالی',
-                'minAmountIranPay2' => '⬇️ حداقل مبلغ ارزی ریالی دوم',
+                'minAmountIranPay2' => '⬇️ حداقل مبلغ کیوب‌پی (ارزی ریالی دوم)',
                 'minAmountIranPay3' => '⬇️ حداقل مبلغ ارزی ریالی سوم',
                 'minAmountNowPayment' => '⬇️ حداقل مبلغ nowpayment',
                 'minAmountPlisio' => '⬇️ حداقل مبلغ plisio',
@@ -4030,14 +4027,13 @@ f,n.n2',
                 'setAffiliateBanner' => '🏞 تنظیم بنر زیرمجموعه گیری',
                 'setAffiliatePercent' => '🧮 تنظیم درصد زیرمجموعه',
                 'setApi' => 'تنظیم api',
-                'setApiAddress' => 'تنظیم آدرس api',
                 'setAqayePardakhtMerchant' => 'تنظیم مرچنت آقای پرداخت',
                 'setCardNumber' => '💳 تنظیم شماره کارت',
                 'setEducationAqayePardakht' => '📚 تنظیم آموزش درگاه اقای پرداخت',
                 'setEducationCartToCart' => '📚 تنظیم آموزش کارت به کارت',
                 'setEducationCryptoOffline' => '📚 تنظیم آموزش  ارزی افلاین',
                 'setEducationIranPay1' => '📚 تنظیم آموزش ارزی ریالی اول',
-                'setEducationIranPay2' => '📚 تنظیم آموزش ارزی ریالی  دوم',
+                'setEducationIranPay2' => '📚 تنظیم آموزش کیوب‌پی (ارزی ریالی دوم)',
                 'setEducationIranPay3' => '📚 تنظیم آموزش ارزی ریالی سوم',
                 'setEducationNowPayment' => '📚 تنظیم آموزش nowpayment',
                 'setEducationPlisio' => '📚 تنظیم آموزش plisio',
@@ -4662,13 +4658,10 @@ f,n.n2',
 موجودی کاربر : %s تومان
 کد پیگیری پرداخت : %s',
                 'reportTronado' => '💵 پرداخت جدید
-%s
 - 👤 نام کاربری کاربر : @%s
 - 🆔آیدی عددی کاربر : %s
 - 💸 مبلغ تراکنش %s
-- 🔗 <a href = "https://tronscan.org/#/transaction/%s">لینک پرداخت </a>
-- 📥 مبلغ واریز شده ترون. : %s
-- 💳 روش پرداخت :  ترونادو',
+- 💳 روش پرداخت : ارزی ریالی دوم (CubePay)',
                 'reportNowpayment' => '💵 پرداخت جدید
 - 👤 نام کاربری کاربر : @%s
 - ‏🆔آیدی عددی کاربر : %s

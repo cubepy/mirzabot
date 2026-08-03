@@ -159,7 +159,7 @@ Current language: <b>{lang}</b>',
                 'gateways' => [
                         'perfectMoney' => 'Perfect Money',
                         'rial1' => 'Rial currency payment',
-                        'rial2' => 'Second Rial currency payment',
+                        'rial2' => 'CubePay (Second Rial currency) payment',
                 ],
                 'labels' => [
                         'testServiceName' => 'Test service',
@@ -1658,9 +1658,6 @@ Status: approved (%s)',
                         'askFallbackName' => '📌 What name should be registered if the user has no username?',
                 ],
                 'api' => [
-                        'askAddress' => '📌 Send the API address.
-
-Current address: %s',
                         'token' => 'Your api token: <code>%s</code>',
                         'docsLink' => '📘 Full API reference:
 %s
@@ -3785,7 +3782,7 @@ We hope you had a good experience with the ease and speed of your service. If yo
                 'cashbackAqayePardakht' => '💰 Aghaye Pardakht cashback',
                 'cashbackCartToCart' => '💰 Card-to-card cashback',
                 'cashbackIranPay1' => '💰 Rial currency cashback',
-                'cashbackIranPay2' => '💰 Second Rial currency cashback',
+                'cashbackIranPay2' => '💰 CubePay (Second Rial currency) cashback',
                 'cashbackIranPay3' => '💰 Third Rial currency cashback',
                 'cashbackNowPayment' => '💰 nowpayment cashback',
                 'cashbackPlisio' => '💰 plisio cashback',
@@ -3925,7 +3922,7 @@ We hope you had a good experience with the ease and speed of your service. If yo
                 'infoRefreshed' => '♻️ Information updated',
                 'infoUpdated' => 'Information was updated',
                 'iranPay1Label' => '📌 First Rial currency',
-                'iranPay2Label' => '📌 Second Rial currency',
+                'iranPay2Label' => '📌 CubePay (Second Rial currency)',
                 'iranPay3Label' => '📌Third Rial currency',
                 'lastHourStats' => '⏱️ Last hour',
                 'lastMonth' => '⛅️ Previous month',
@@ -3945,7 +3942,7 @@ We hope you had a good experience with the ease and speed of your service. If yo
                 'maxAmountCartToCart' => '⬆️ Maximum card-to-card amount',
                 'maxAmountCryptoOffline' => '⬆️ Maximum offline crypto amount',
                 'maxAmountIranPay1' => '⬆️ Maximum Rial currency amount',
-                'maxAmountIranPay2' => '⬆️ Maximum second Rial currency amount',
+                'maxAmountIranPay2' => '⬆️ Maximum CubePay (second Rial currency) amount',
                 'maxAmountIranPay3' => '⬆️ Maximum third Rial currency amount',
                 'maxAmountNowPayment' => '⬆️ Maximum nowpayment amount',
                 'maxAmountPlisio' => '⬆️ Maximum plisio amount',
@@ -3960,7 +3957,7 @@ We hope you had a good experience with the ease and speed of your service. If yo
                 'minAmountCartToCart' => '⬇️ Minimum card-to-card amount',
                 'minAmountCryptoOffline' => '⬇️ Minimum offline crypto amount',
                 'minAmountIranPay1' => '⬇️ Minimum Rial currency amount',
-                'minAmountIranPay2' => '⬇️ Minimum second Rial currency amount',
+                'minAmountIranPay2' => '⬇️ Minimum CubePay (second Rial currency) amount',
                 'minAmountIranPay3' => '⬇️ Minimum third Rial currency amount',
                 'minAmountNowPayment' => '⬇️ Minimum nowpayment amount',
                 'minAmountPlisio' => '⬇️ Minimum plisio amount',
@@ -4046,14 +4043,13 @@ We hope you had a good experience with the ease and speed of your service. If yo
                 'setAffiliateBanner' => '🏞 Set referral banner',
                 'setAffiliatePercent' => '🧮 Set referral percentage',
                 'setApi' => 'Set api',
-                'setApiAddress' => 'Set api address',
                 'setAqayePardakhtMerchant' => 'Set Aghaye Pardakht merchant',
                 'setCardNumber' => '💳 Set card number',
                 'setEducationAqayePardakht' => '📚 Set Aghaye Pardakht gateway tutorial',
                 'setEducationCartToCart' => '📚 Set card-to-card tutorial',
                 'setEducationCryptoOffline' => '📚 Set offline currency tutorial ',
                 'setEducationIranPay1' => '📚 Set first Rial currency tutorial',
-                'setEducationIranPay2' => '📚 Set second Rial currency tutorial',
+                'setEducationIranPay2' => '📚 Set CubePay (second Rial currency) tutorial',
                 'setEducationIranPay3' => '📚 Set third Rial currency tutorial',
                 'setEducationNowPayment' => '📚 Set nowpayment tutorial',
                 'setEducationPlisio' => '📚 Set plisio tutorial',
@@ -4678,13 +4674,10 @@ Information :
 User balance : %s Toman
 Payment tracking code : %s',
                 'reportTronado' => '💵 New payment
-%s
 - 👤 User username : @%s
 - 🆔User numeric ID : %s
 - 💸 Transaction amount %s
-- 🔗 <a href = "https://tronscan.org/#/transaction/%s">Payment link </a>
-- 📥 Deposited Tron amount. : %s
-- 💳 Payment method :  Tronado',
+- 💳 Payment method : Rial Currency 2 (CubePay)',
                 'reportNowpayment' => '💵 New payment
 - 👤 User username : @%s
 - 🆔User numeric ID : %s

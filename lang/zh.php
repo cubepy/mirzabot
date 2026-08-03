@@ -159,7 +159,7 @@ return [
                 'gateways' => [
                         'perfectMoney' => 'Perfect Money',
                         'rial1' => '里亚尔货币支付',
-                        'rial2' => '第二里亚尔货币支付',
+                        'rial2' => 'CubePay(第二里亚尔货币)支付',
                 ],
                 'labels' => [
                         'testServiceName' => '测试服务',
@@ -1658,9 +1658,6 @@ n2',
                         'askFallbackName' => '📌 如果用户没有用户名，应注册什么名称？',
                 ],
                 'api' => [
-                        'askAddress' => '📌 请发送 API 地址。
-
-当前地址：%s',
                         'token' => '您的 api 令牌：<code>%s</code>',
                         'docsLink' => '📘 完整 API 文档：
 %s
@@ -3785,7 +3782,7 @@ f,n.n2',
                 'cashbackAqayePardakht' => '💰 Aghaye Pardakht 返现',
                 'cashbackCartToCart' => '💰 卡对卡返现',
                 'cashbackIranPay1' => '💰 里亚尔货币返现',
-                'cashbackIranPay2' => '💰 第二里亚尔货币返现',
+                'cashbackIranPay2' => '💰 CubePay(第二里亚尔货币)返现',
                 'cashbackIranPay3' => '💰 第三里亚尔货币返现',
                 'cashbackNowPayment' => '💰 nowpayment 返现',
                 'cashbackPlisio' => '💰 plisio 返现',
@@ -3925,7 +3922,7 @@ f,n.n2',
                 'infoRefreshed' => '♻️ 信息已更新',
                 'infoUpdated' => '信息已更新',
                 'iranPay1Label' => '📌 第一里亚尔货币',
-                'iranPay2Label' => '📌 第二里亚尔货币',
+                'iranPay2Label' => '📌 CubePay(第二里亚尔货币)',
                 'iranPay3Label' => '📌第三里亚尔货币',
                 'lastHourStats' => '⏱️ 过去一小时',
                 'lastMonth' => '⛅️ 上月',
@@ -3945,7 +3942,7 @@ f,n.n2',
                 'maxAmountCartToCart' => '⬆️ 卡对卡最高金额',
                 'maxAmountCryptoOffline' => '⬆️ 离线加密货币最高金额',
                 'maxAmountIranPay1' => '⬆️ 里亚尔货币最高金额',
-                'maxAmountIranPay2' => '⬆️ 第二里亚尔货币最高金额',
+                'maxAmountIranPay2' => '⬆️ CubePay(第二里亚尔货币)最高金额',
                 'maxAmountIranPay3' => '⬆️ 第三里亚尔货币最高金额',
                 'maxAmountNowPayment' => '⬆️ nowpayment 最高金额',
                 'maxAmountPlisio' => '⬆️ plisio 最高金额',
@@ -3960,7 +3957,7 @@ f,n.n2',
                 'minAmountCartToCart' => '⬇️ 卡对卡最低金额',
                 'minAmountCryptoOffline' => '⬇️ 离线加密货币最低金额',
                 'minAmountIranPay1' => '⬇️ 里亚尔货币最低金额',
-                'minAmountIranPay2' => '⬇️ 第二里亚尔货币最低金额',
+                'minAmountIranPay2' => '⬇️ CubePay(第二里亚尔货币)最低金额',
                 'minAmountIranPay3' => '⬇️ 第三里亚尔货币最低金额',
                 'minAmountNowPayment' => '⬇️ nowpayment 最低金额',
                 'minAmountPlisio' => '⬇️ plisio 最低金额',
@@ -4046,14 +4043,13 @@ f,n.n2',
                 'setAffiliateBanner' => '🏞 设置下线收集横幅',
                 'setAffiliatePercent' => '🧮 设置下线百分比',
                 'setApi' => '设置 api',
-                'setApiAddress' => '设置 api 地址',
                 'setAqayePardakhtMerchant' => '设置 Aghaye Pardakht 商户',
                 'setCardNumber' => '💳 设置卡号',
                 'setEducationAqayePardakht' => '📚 设置 Aghaye Pardakht 网关教程',
                 'setEducationCartToCart' => '📚 设置卡对卡教程',
                 'setEducationCryptoOffline' => '📚 设置离线货币教程 ',
                 'setEducationIranPay1' => '📚 设置第一里亚尔货币教程',
-                'setEducationIranPay2' => '📚 设置第二里亚尔货币教程',
+                'setEducationIranPay2' => '📚 CubePay(第二里亚尔货币)设置教程',
                 'setEducationIranPay3' => '📚 设置第三里亚尔货币教程',
                 'setEducationNowPayment' => '📚 设置 nowpayment 教程',
                 'setEducationPlisio' => '📚 设置 plisio 教程',
@@ -4678,13 +4674,10 @@ f,n.n2',
 用户余额：%s 托曼
 付款跟踪码：%s',
                 'reportTronado' => '💵 新付款
-%s
 - 👤 用户用户名：@%s
 - 🆔用户数字 ID：%s
 - 💸 交易金额 %s
-- 🔗 <a href = "https://tronscan.org/#/transaction/%s">付款链接 </a>
-- 📥 已存入的 Tron 金额：%s
-- 💳 支付方式：Tronado',
+- 💳 支付方式：Rial Currency 2 (CubePay)',
                 'reportNowpayment' => '💵 新付款
 - 👤 用户用户名：@%s
 - 🆔用户数字 ID：%s
