@@ -5136,7 +5136,7 @@ if ($text == "/start" || $datain == "start" || $text == "start") {
         $payment_Status = "Unpaid";
         $Payment_Method = "Currency Rial 2";
         $stmt->execute([$from_id, $randomString, $dateacc, $user['Processing_value'], $payment_Status, $Payment_Method, $invoice]);
-        $payment = trnado($randomString, $user['Processing_value']);
+        $payment = trnado($randomString, $user['Processing_value'], $from_id);
         if (empty($payment['success'])) {
             $text_error = json_encode($payment);
             sendmessage($from_id, $textbotlang['users']['Balance']['errorLinkPayment'], $keyboard, 'HTML');

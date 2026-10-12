@@ -815,7 +815,7 @@ function createPayiranpay4($price, $order_id)
     return json_decode($response, true) ?: ['success' => false, 'message' => 'iranpay4: bad response'];
 }
 
-function trnado($order_id, $price)
+function trnado($order_id, $price, $customer_user_id = null)
 {
     global $domainhosts;
     $token_cubepay = select("PaySetting", "*", "NamePay", "apiternado", "select")['ValuePay'];
@@ -835,12 +835,35 @@ function trnado($order_id, $price)
             'Authorization: Bearer ' . $token_cubepay
         ),
     ));
-    curl_setopt($curl, CURLOPT_POSTFIELDS, json_encode([
+    $requestPayload = [
         'price_amount' => $amount_toman,
         'order_id' => $order_id,
         'callback_url' => "https://$domainhosts/payment/iranpay2.php",
         'redirect_after_payment' => false,
-    ], JSON_UNESCAPED_UNICODE));
+    ];
+
+    // Forward the buyer ID already supplied by the bot or authenticated API caller.
+    $buyerId = (is_int($customer_user_id) || is_string($customer_user_id))
+        ? trim((string) $customer_user_id) : '';
+    if (preg_match('/\A[1-9][0-9]{0,15}\z/D', $buyerId)) {
+        $requestPayload['customer_user_id'] = $buyerId;
+        try {
+            // The lookup is scoped to the same buyer. Missing username is normal.
+            $buyerRow = select('user', 'username', 'id', $buyerId, 'select');
+            $buyerUsernameValue = is_array($buyerRow) ? ($buyerRow['username'] ?? null) : $buyerRow;
+            $buyerUsername = is_string($buyerUsernameValue)
+                ? ltrim(trim($buyerUsernameValue), '@') : '';
+            if (preg_match('/\A[A-Za-z0-9_]{1,64}\z/D', $buyerUsername)
+                && !in_array(strtolower($buyerUsername), ['none', 'null', 'undefined'], true)) {
+                $requestPayload['customer_username'] = $buyerUsername;
+            }
+        } catch (Throwable $buyerMetadataError) {
+            // Optional display metadata cannot interrupt payment creation.
+            // The numeric buyer ID is still sent if the profile lookup fails.
+        }
+    }
+
+    curl_setopt($curl, CURLOPT_POSTFIELDS, json_encode($requestPayload, JSON_UNESCAPED_UNICODE));
 
     $response = curl_exec($curl);
     curl_close($curl);
